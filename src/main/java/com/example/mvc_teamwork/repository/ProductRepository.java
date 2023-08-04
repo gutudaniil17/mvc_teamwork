@@ -2,11 +2,11 @@ package com.example.mvc_teamwork.repository;
 
 import com.example.mvc_teamwork.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
-// TODO test it
+@Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     Optional<Product> findByName(String name);
 }
