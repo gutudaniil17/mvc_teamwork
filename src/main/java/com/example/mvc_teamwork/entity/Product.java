@@ -22,7 +22,12 @@ public class Product {
     @Column(name = "price")
     private int price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH
+    })
     @JoinColumn(name = "category_id")
     private Category categoryId;
 }
