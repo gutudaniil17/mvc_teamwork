@@ -14,13 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue
     private int id;
-
-    @Column(name = "name")
     private String name;
-
     @OneToMany(mappedBy = "categoryId",cascade = CascadeType.ALL)
     private List<Product> products;
 }

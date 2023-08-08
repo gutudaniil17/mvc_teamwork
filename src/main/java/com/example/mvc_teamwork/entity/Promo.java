@@ -12,10 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Promo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue
     private int id;
-
-    @Column(name = "promo",nullable = false)
     private String code;
 }

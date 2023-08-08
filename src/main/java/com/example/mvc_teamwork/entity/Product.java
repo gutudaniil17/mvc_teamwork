@@ -13,13 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Product {
     @Id
-    @Column(name = "id")
+    @GeneratedValue
     private int id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "price")
     private int price;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {
