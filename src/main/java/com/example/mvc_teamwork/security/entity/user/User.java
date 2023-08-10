@@ -1,10 +1,12 @@
-package com.example.mvc_teamwork.entity;
+package com.example.mvc_teamwork.security.entity.user;
 
+import com.example.mvc_teamwork.security.entity.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
+    @NotNull
     private Integer id;
     private String firstName;
     private String lastName;
@@ -30,10 +33,15 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    public List<Token> tokens;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
+    @Override
+    public String getPassword(){return password;}
 
     @Override
     public String getUsername() {
