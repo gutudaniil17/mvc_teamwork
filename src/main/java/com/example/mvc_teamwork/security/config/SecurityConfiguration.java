@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                         "api/v1/auth/refresh-token",
                         "api/v1/auth/demo-controller")
                     .permitAll()
+                // TODO fix admin part
                 .requestMatchers("/api/v1/auth/admin/**")
                     .hasRole(ADMIN.name())
                 .anyRequest()
