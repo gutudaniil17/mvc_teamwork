@@ -8,13 +8,13 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "categoties")
+@Table(name = "categories")
 @Setter
 @Getter
 @NoArgsConstructor
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @OneToMany(mappedBy = "categoryId",cascade = CascadeType.ALL)
