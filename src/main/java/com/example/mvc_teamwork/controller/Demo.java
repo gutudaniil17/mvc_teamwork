@@ -14,7 +14,7 @@ public class Demo {
         return ResponseEntity.ok("Hello");
     }
 
-    @GetMapping("/admin/hello") ResponseEntity<String> sayHelloForAdmin(){
-        return ResponseEntity.ok("hello, admin");
+    @GetMapping("/admin/hello") ResponseEntity<String> sayHelloForROLE_ADMIN(){
+        return ResponseEntity.ok("hello, ROLE_ADMIN");
     }
 }
