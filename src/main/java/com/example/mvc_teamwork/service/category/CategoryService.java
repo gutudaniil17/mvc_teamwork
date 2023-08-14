@@ -6,7 +6,13 @@ import java.util.List;
 
 public interface CategoryService {
     void addCategory(Category category);
-    Category findByName(String name);
+
     void deleteCategory(int id);
+
+    Category changeCategory(String name,int id);
+
+    Category findByName(String name);
+    Category findById(int id);
+
     List<Category> findAll();
 }

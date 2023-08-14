@@ -16,15 +16,24 @@ public class CategoryController {
         return categoryService.findByName(category).toString();
     }
 
-    @GetMapping("user/find_all_categories")
+    @GetMapping("/user/find_all_categories")
     public String findAllCategories() {
         return categoryService.findAll().toString();
     }
 
-    @GetMapping("user/find_all_products/{category}")
+    @GetMapping("/user/find_all_products/{category}")
     public String findAllProducts(@PathVariable String category) {
         return categoryService.findByName(category)
                 .getProducts().toString();
+    }
+
+
+    @PostMapping("/admin/update/{id}")
+    public String updateCategory(
+            @PathVariable int id,
+            @RequestBody String name) {
+        categoryService.changeCategory(name, id);
+        return "ok";
     }
 
     @PostMapping("/admin/add_category")

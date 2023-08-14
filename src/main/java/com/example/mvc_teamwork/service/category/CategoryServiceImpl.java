@@ -2,7 +2,6 @@ package com.example.mvc_teamwork.service.category;
 
 import com.example.mvc_teamwork.entity.Category;
 import com.example.mvc_teamwork.repository.CategoryRepository;
-import com.example.mvc_teamwork.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findById(int id) {
+        return categoryRepository.findById(id);
+    }
+
+    @Override
     public void deleteCategory(int id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category changeCategory(String name, int id) {
+        return categoryRepository.updateCategoryNameById(name,id);
     }
 
     @Override
