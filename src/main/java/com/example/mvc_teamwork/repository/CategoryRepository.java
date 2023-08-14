@@ -7,12 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Category save(Category category);
 
-    Category findByName(String name);
+    @Override
+    Optional<Category> findById(Integer integer);
+
+    Optional<Category> findByName(String name);
 
     void deleteById(int id);
 
@@ -21,6 +25,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Modifying
     @Query("update Category c set c.name = :name where c.id = :id")
     Category updateCategoryNameById(String name, int id);
-
-    Category findById(int id);
 }

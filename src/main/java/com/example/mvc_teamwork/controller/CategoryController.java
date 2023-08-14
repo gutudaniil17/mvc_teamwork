@@ -13,7 +13,7 @@ public class CategoryController {
 
     @GetMapping("/user/find_by_name/{category}")
     public String findCategoryByName(@PathVariable String category) {
-        return categoryService.findByName(category).toString();
+        return categoryService.findByName(category) == null ? "No such category" : toString();
     }
 
     @GetMapping("/user/find_all_categories")
