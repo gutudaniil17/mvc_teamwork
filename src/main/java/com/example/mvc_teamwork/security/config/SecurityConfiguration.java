@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import static com.example.mvc_teamwork.security.entity.Role.ADMIN;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,33 +23,25 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    private final LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "api/v1/auth/authenticate",
                         "api/v1/auth/register",
                         "api/v1/auth/refresh-token",
                         "api/v1/auth/user/**")
-                    .permitAll()
-                // TODO fix admin part
+                .permitAll()
                 .requestMatchers("/api/v1/auth/admin/**")
-                    .hasRole("ADMIN")
+                .hasAuthority(ADMIN.name())
                 .anyRequest()
-                    .authenticated()
-                .and()
-                    .authenticationProvider(authenticationProvider)
-                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout()
-                    .logoutUrl("api/v1/auth/logout")
-                    .addLogoutHandler(logoutHandler)
-                    .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()));
+                .authenticated();
         return http.build();
     }
 }

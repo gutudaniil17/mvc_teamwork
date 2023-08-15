@@ -1,6 +1,6 @@
 package com.example.mvc_teamwork.security.repository;
 
-import com.example.mvc_teamwork.security.entity.user.User;
+import com.example.mvc_teamwork.security.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

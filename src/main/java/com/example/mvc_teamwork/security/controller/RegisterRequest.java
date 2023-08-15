@@ -1,6 +1,6 @@
 package com.example.mvc_teamwork.security.controller;
 
-import com.example.mvc_teamwork.security.entity.user.Role;
+import com.example.mvc_teamwork.security.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

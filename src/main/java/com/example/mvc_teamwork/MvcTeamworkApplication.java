@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
 
-import static com.example.mvc_teamwork.security.entity.user.Role.ADMIN;
+import static com.example.mvc_teamwork.security.entity.Role.ADMIN;
 
 @SpringBootApplication
 public class MvcTeamworkApplication {
