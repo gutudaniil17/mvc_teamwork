@@ -9,7 +9,7 @@ public interface CategoryService {
 
     void deleteCategory(int id);
 
-    Category changeCategory(String name,int id);
+    void changeCategory(String name, int id);
 
     Category findByName(String name);
     Category findById(int id);

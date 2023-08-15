@@ -35,8 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category changeCategory(String name, int id) {
-        return categoryRepository.updateCategoryNameById(name,id);
+    public void changeCategory(String name, int id) {
+        categoryRepository.updateCategoryNameById(name,id);
     }
 
     @Override

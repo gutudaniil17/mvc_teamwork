@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("/user/find_by_name/{category}")
+    @GetMapping("/user/find_by_name_category/{category}")
     public String findCategoryByName(@PathVariable String category) {
         return categoryService.findByName(category) == null ? "No such category" : toString();
     }
@@ -28,10 +28,11 @@ public class CategoryController {
     }
 
 
-    @PostMapping("/admin/update/{id}")
+    @PostMapping("/admin/update_category/{id}")
     public String updateCategory(
             @PathVariable int id,
-            @RequestBody String name) {
+            @RequestBody String name
+    ) {
         categoryService.changeCategory(name, id);
         return "ok";
     }
