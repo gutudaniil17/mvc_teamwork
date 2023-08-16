@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/user/find_by_name_product/{product}")
+    @GetMapping("/find_by_name_product/{product}")
     public String findProductByName(@PathVariable String product){
-        return productService.findByName(product) == null ? "No such product" : toString();
+        Product product1 = productService.findByName(product);
+        return product1 == null ? "No such product" : product1.toString();
     }
 
     @PostMapping("/admin/add_product")

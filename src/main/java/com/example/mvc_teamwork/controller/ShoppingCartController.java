@@ -1,34 +1,33 @@
 package com.example.mvc_teamwork.controller;
 
 import com.example.mvc_teamwork.entity.*;
+import com.example.mvc_teamwork.security.config.JwtService;
 import com.example.mvc_teamwork.security.entity.User;
 import com.example.mvc_teamwork.service.order.OrderService;
 import com.example.mvc_teamwork.service.product.ProductService;
 import com.example.mvc_teamwork.service.user.UserService;
 import com.example.mvc_teamwork.service.user.UserServiceImpl;
 import com.example.mvc_teamwork.util.DateUtil;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 @RestController
-@RequestMapping("api/v1/auth/user/shopping_cart")
+@RequestMapping("api/v1/auth")
+@RequiredArgsConstructor
 public class ShoppingCartController {
 
-    private OrderService orderService;
-    private ProductService productService;
-    private UserService userService;
-
-       public ShoppingCartController(OrderService orderService, ProductService productService, UserServiceImpl userService) {
-        this.orderService = orderService;
-        this.productService = productService;
-        this.userService = userService;
-    }
+    private final OrderService orderService;
+    private final ProductService productService;
+    private final UserService userService;
+    private final JwtService jwtService;
 
     private Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
 
@@ -40,7 +39,7 @@ public class ShoppingCartController {
         return ResponseEntity.ok(productList);
     }
 
-    @GetMapping(value = "/getOrder/{orderId}")
+    @GetMapping(value = "/user/getOrder/{orderId}")
     public ResponseEntity<Order> getOrderDetails(@PathVariable int orderId) {
 
         Order order = orderService.getOrderDetail(orderId);
@@ -48,25 +47,16 @@ public class ShoppingCartController {
     }
 
 
-    @PostMapping("/placeOrder")
-    public ResponseEntity<ResponseOrderDTO> placeOrder(@RequestBody OrderDTO orderDTO) {
+    @PostMapping("/user/placeOrder")
+    public ResponseEntity<ResponseOrderDTO> placeOrder(@RequestBody OrderDTO orderDTO, @RequestHeader("Authorization") String token) {
         logger.info("Request Payload " + orderDTO.toString());
         ResponseOrderDTO responseOrderDTO = new ResponseOrderDTO();
         float amount = orderService.getCartAmount(orderDTO.getCartItems());
 
-        User user = new User();
-        user.setFirstName(orderDTO.getUserFirstName());
-        user.setEmail(orderDTO.getUserEmail());
-
-        Optional<Integer> userIdOptional = userService.isCustomerPresent(user);
-        if (userIdOptional.isPresent()) {
-            Integer userIdFromDb = userIdOptional.get();
-            user.setId(userIdFromDb);
-            logger.info("User already present in db with id: " + userIdFromDb);
-        } else {
-            user = userService.saveUser(user);
-            logger.info("User saved with id: " + user.getId());
-        }
+        token = token.substring(7);
+        logger.info(token);
+        String username = jwtService.extractUsername(token);
+        User user = userService.getUserByEmail(username).get();
 
         Order order = new Order();
         order.setOrderDescription(orderDTO.getOrderDescription());

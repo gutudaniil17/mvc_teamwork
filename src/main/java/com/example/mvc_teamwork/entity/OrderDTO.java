@@ -11,8 +11,4 @@ import java.util.List;
 public class OrderDTO {
     private String orderDescription;
     private List<ShoppingCart> cartItems;
-    private String userEmail;
-    private String userFirstName;
-    private String usersLastName;
-
 }

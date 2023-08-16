@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("/user/find_by_name_category/{category}")
+    @GetMapping("/find_by_name_category/{category}")
     public String findCategoryByName(@PathVariable String category) {
         return categoryService.findByName(category) == null ? "No such category" : toString();
     }
 
-    @GetMapping("/user/find_all_categories")
+    @GetMapping("/find_all_categories")
     public String findAllCategories() {
         return categoryService.findAll().toString();
     }
 
-    @GetMapping("/user/find_all_products/{category}")
+    @GetMapping("/find_all_products/{category}")
     public String findAllProducts(@PathVariable String category) {
         return categoryService.findByName(category)
                 .getProducts().toString();
