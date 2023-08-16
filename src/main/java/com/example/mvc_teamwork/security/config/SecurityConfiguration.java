@@ -31,22 +31,12 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                     .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
-                .requestMatchers(
-                        "api/v1/auth/authenticate",
-                        "api/v1/auth/register",
-                        "api/v1/auth/refresh-token",
-                        "api/v1/auth/**")
-                .permitAll()
                 .requestMatchers("api/v1/auth/user/**")
                 .hasAuthority(USER.name())
-                /*.access(AuthorizationManagers.allOf(
-                        AuthorityAuthorizationManager.hasAuthority(ADMIN.name()),
-                        AuthorityAuthorizationManager.hasAnyAuthority(USER.name())
-                ))*/
                 .requestMatchers("/api/v1/auth/admin/**")
                 .hasAuthority(ADMIN.name())
                 .anyRequest()
-                .authenticated();
+                .permitAll();
         return http.build();
     }
 }
