@@ -8,6 +8,8 @@ import com.example.mvc_teamwork.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +22,15 @@ public class ProductServiceImpl implements ProductService{
         Optional<Product> product = productRepository.findByName(name);
         return product.isPresent()?product.get():null;
     }
-
+    @Override
+    public List<ProductDTO> getAllProducts() {
+        List<Product> productList = productRepository.findAll();
+        List<ProductDTO> list = new ArrayList<>();
+        for(Product product : productList){
+            list.add(productToDTO(product));
+        }
+        return list;
+    }
     @Override
     public Product addProduct(ProductDTO productDTO) {
         Product product = DTOtoProduct(productDTO);
@@ -49,5 +59,16 @@ public class ProductServiceImpl implements ProductService{
         product.setPrice(productDTO.getPrice());
         product.setCategoryId(category);
         return product;
+    }
+
+    @Override
+    public ProductDTO productToDTO(Product product) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setName(product.getName());
+        productDTO.setPrice(product.getPrice());
+        Category category = product.getCategoryId();
+        productDTO.setCategoryId(category.getId());
+        return productDTO;
     }
 }

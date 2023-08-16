@@ -16,6 +16,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private int availableQuantity;//added
     private int price;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {

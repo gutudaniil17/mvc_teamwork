@@ -21,7 +21,7 @@ public class MvcTeamworkApplication {
         SpringApplication.run(MvcTeamworkApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public CommandLineRunner commandLineRunner(AuthenticationService service) {
         return args -> {
             var admin = RegisterRequest.builder().firstName("Admin")
@@ -30,7 +30,7 @@ public class MvcTeamworkApplication {
                     .build();
             System.out.println("Admin token: " + service.register(admin).getAccessToken());
         };
-    }
+    }*/
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("dataSource") final DataSource dataSource) {
