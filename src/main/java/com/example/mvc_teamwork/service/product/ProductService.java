@@ -13,4 +13,5 @@ public interface ProductService {
     void changeProduct(ProductDTO productDTO, int id);
     Product DTOtoProduct(ProductDTO productDTO);
     ProductDTO productToDTO(Product product);
+    void fillReportToAdmin();
 }
