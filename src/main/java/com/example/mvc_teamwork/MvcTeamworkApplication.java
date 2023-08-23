@@ -21,7 +21,7 @@ public class MvcTeamworkApplication {
         SpringApplication.run(MvcTeamworkApplication.class, args);
     }
 
-    @Bean
+   /* @Bean
     public CommandLineRunner commandLineRunner(AuthenticationService service) {
         return args -> {
             var admin = RegisterRequest.builder().firstName("Admin")
@@ -35,11 +35,11 @@ public class MvcTeamworkApplication {
     @Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("dataSource") final DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resourceDatabasePopulator.addScript(new ClassPathResource("/data.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("/data1.sql"));
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
         return dataSourceInitializer;
-    }
+    }*/
 }
 

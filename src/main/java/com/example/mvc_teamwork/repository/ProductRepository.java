@@ -4,6 +4,7 @@ import com.example.mvc_teamwork.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     @Modifying
     @Query("update Product p set p.name = :name where p.id = :id")
-    void updateProductNameById(String name, int id);
+    void updateProductNameById(String name,int id);
 
     @Transactional
     @Modifying
