@@ -9,4 +9,6 @@ public interface OrderService {
     public Order getOrderDetail(int orderId);
     public float getCartAmount(List<ShoppingCart> shoppingCartList);
     public Order saveOrder(Order order);
+
+    void fillReportToUser(int id);
 }

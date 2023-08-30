@@ -21,16 +21,16 @@ public class MvcTeamworkApplication {
         SpringApplication.run(MvcTeamworkApplication.class, args);
     }
 
-   /* @Bean
-    public CommandLineRunner commandLineRunner(AuthenticationService service) {
-        return args -> {
-            var admin = RegisterRequest.builder().firstName("Admin")
-                    .lastName("Admin").email("admin@mail.com")
-                    .password("password").role(ADMIN)
-                    .build();
-            System.out.println("Admin token: " + service.register(admin).getAccessToken());
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(AuthenticationService service) {
+//        return args -> {
+//            var admin = RegisterRequest.builder().firstName("Admin")
+//                    .lastName("Admin").email("admin@mail.com")
+//                    .password("password").role(ADMIN)
+//                    .build();
+//            System.out.println("Admin token: " + service.register(admin).getAccessToken());
+//        };
+//    }
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("dataSource") final DataSource dataSource) {
@@ -40,6 +40,7 @@ public class MvcTeamworkApplication {
         dataSourceInitializer.setDataSource(dataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
         return dataSourceInitializer;
-    }*/
+    }
+
 }
 

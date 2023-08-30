@@ -11,9 +11,15 @@ import com.example.mvc_teamwork.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,5 +80,17 @@ public class ShoppingCartController {
         logger.info("test push..");
 
         return ResponseEntity.ok(responseOrderDTO);
+    }
+    @GetMapping("/user/download_order_info/{id}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable int id) throws IOException {
+        orderService.fillReportToUser(id);
+        Resource resource = new UrlResource("file:src/main/resources/jasper-templates/OrderReportUser.jrxml");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", "OrderReportUser.pdf");
+        byte[] fileBytes = Files.readAllBytes(resource.getFile().toPath());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(fileBytes);
     }
 }

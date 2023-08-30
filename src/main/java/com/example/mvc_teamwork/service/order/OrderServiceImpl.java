@@ -3,10 +3,15 @@ package com.example.mvc_teamwork.service.order;
 import com.example.mvc_teamwork.entity.Order;
 import com.example.mvc_teamwork.entity.Product;
 import com.example.mvc_teamwork.entity.ShoppingCart;
+import com.example.mvc_teamwork.jasper.OrderReportUser;
+import com.example.mvc_teamwork.jasper.ProductReportAdmin;
 import com.example.mvc_teamwork.repository.OrderRepository;
 import com.example.mvc_teamwork.repository.ProductRepository;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +62,18 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order saveOrder(Order order) {
         return orderRepository.save(order);
+    }
+    @Override
+    public void fillReportToUser(int id) {
+
+        File template = new File(new ClassPathResource("src/main/resources/jasper-templates/OrderReportUser.jrxml").getPath());
+        OrderReportUser orderReportUser = new OrderReportUser();
+        File orderInformation = new File("src/main/resources/jasper-templates/OrderReportUser.pdf");
+        Order order = orderRepository.getReferenceById(id);
+        try {
+            orderReportUser.fillReport(template,orderInformation,order);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
